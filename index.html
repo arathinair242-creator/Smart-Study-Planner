@@ -1,0 +1,503 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2563eb" />
+  <title>StudyFlow | Smart Study Planner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+
+  <section id="loginPage" class="login-page">
+    <div class="login-card">
+      <div class="login-logo">S</div>
+
+      <p class="login-tagline">YOUR PERSONAL STUDY COMPANION</p>
+      <h1>Welcome back!</h1>
+      <p class="login-subtitle">
+        Plan your studies. Achieve your goals.
+      </p>
+
+      <form id="loginForm">
+        <label for="studentName">Student name</label>
+        <input
+          type="text"
+          id="studentName"
+          value="Arathi Nair"
+          placeholder="Enter your name"
+          required
+        />
+
+        <label for="studentEmail">Email address</label>
+        <input
+          type="email"
+          id="studentEmail"
+          placeholder="you@example.com"
+          required
+        />
+
+        <button type="submit" class="login-btn">
+          Enter Study Planner →
+        </button>
+      </form>
+
+      <p class="login-footer">
+        Plan smart. Study better. Achieve more.
+      </p>
+    </div>
+  </section>
+
+
+  <div id="plannerApp" class="app-shell" style="display: none;">
+
+  
+    <aside class="sidebar">
+      <a href="#" class="brand" data-view="dashboard">
+        <span class="brand-logo">S</span>
+        <span>
+          <strong>StudyFlow</strong>
+          <small>SMART STUDY PLANNER</small>
+        </span>
+      </a>
+
+      <div class="sidebar-label">WORKSPACE</div>
+
+      <nav class="navigation">
+        <button class="nav-item active" data-view="dashboard">
+          <span>▦</span> Dashboard
+        </button>
+        <button class="nav-item" data-view="tasks">
+          <span>☑</span> My Tasks
+        </button>
+        <button class="nav-item" data-view="schedule">
+          <span>▤</span> Study Schedule
+        </button>
+        <button class="nav-item" data-view="deadlines">
+          <span>◷</span> Deadlines
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-tip">
+          <div class="tip-icon">✦</div>
+          <strong>Stay consistent!</strong>
+          <p>Small steps every day lead to big achievements.</p>
+        </div>
+
+        <button id="themeToggle" class="nav-item theme-toggle">
+          <span>◐</span> Toggle dark mode
+        </button>
+
+        <button id="logoutBtn" class="nav-item">
+          <span>↪</span> Log out
+        </button>
+      </div>
+    </aside>
+
+   
+    <main class="main-content">
+
+      <header class="topbar">
+        <div>
+          <p class="topbar-label">YOUR LEARNING SPACE</p>
+          <span id="currentDate"></span>
+        </div>
+
+        <div class="profile">
+          <div class="profile-avatar">A</div>
+          <div>
+            <strong id="profileName">Arathi Nair</strong>
+            <small>Student</small>
+          </div>
+        </div>
+      </header>
+
+   
+      <section id="dashboardView" class="page-view">
+
+        <div class="welcome-banner">
+          <div class="welcome-content">
+            <span class="eyebrow">YOUR PERSONAL DASHBOARD</span>
+            <h1 id="studentGreeting">Hii, Arathi Nair 👋</h1>
+            <p>
+              Ready to make today productive? Let's get things done.
+            </p>
+            <button class="primary-btn" data-view="tasks">
+              View my tasks <span>→</span>
+            </button>
+          </div>
+
+          <div class="welcome-art" aria-hidden="true">
+            <div class="art-circle">
+              <span>📚</span>
+            </div>
+            <span class="art-star star-one">✦</span>
+            <span class="art-star star-two">✧</span>
+          </div>
+        </div>
+
+   
+        <div class="stats-grid">
+          <article class="stat-card">
+            <div class="stat-icon blue-icon">▤</div>
+            <p>Total tasks</p>
+            <h2 id="totalTasks">0</h2>
+            <small>Tasks in your planner</small>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon green-icon">✓</div>
+            <p>Completed</p>
+            <h2 id="completedTasks">0</h2>
+            <small>Tasks you've finished</small>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon orange-icon">◷</div>
+            <p>Pending</p>
+            <h2 id="pendingTasks">0</h2>
+            <small>Tasks left to complete</small>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon violet-icon">◉</div>
+            <p>Study hours</p>
+            <h2 id="studyHours">0h</h2>
+            <small>Estimated study time</small>
+          </article>
+        </div>
+
+      
+        <div class="content-grid">
+          <section class="panel task-panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Today's tasks</h2>
+                <p>Keep moving towards your goals.</p>
+              </div>
+              <button class="text-btn" data-view="tasks">View all →</button>
+            </div>
+
+            <div id="todayTasks" class="task-list">
+              <div class="empty-state">
+                <span>📝</span>
+                <p>No tasks yet. Add your first study task!</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel progress-panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Your progress</h2>
+                <p>Every completed task counts.</p>
+              </div>
+            </div>
+
+            <div class="progress-circle" id="progressCircle">
+              <div class="progress-inner">
+                <strong id="progressPercent">0%</strong>
+                <span>Completed</span>
+              </div>
+            </div>
+
+            <p class="progress-caption" id="progressCaption">
+              Your journey starts here!
+            </p>
+
+            <div class="progress-track">
+              <div id="progressBar" class="progress-fill"></div>
+            </div>
+          </section>
+        </div>
+
+     
+        <section class="panel quick-actions-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Quick actions</h2>
+              <p>Make your next move.</p>
+            </div>
+          </div>
+
+          <div class="quick-actions">
+            <button class="quick-action" id="quickAddTask">
+              <span class="quick-icon blue-icon">＋</span>
+              <span>
+                <strong>Add a task</strong>
+                <small>Plan your next activity</small>
+              </span>
+              <span class="action-arrow">→</span>
+            </button>
+
+            <button class="quick-action" data-view="schedule">
+              <span class="quick-icon green-icon">▤</span>
+              <span>
+                <strong>Study schedule</strong>
+                <small>Organize your study time</small>
+              </span>
+              <span class="action-arrow">→</span>
+            </button>
+
+            <button class="quick-action" data-view="deadlines">
+              <span class="quick-icon orange-icon">◷</span>
+              <span>
+                <strong>Upcoming deadlines</strong>
+                <small>Stay ahead of due dates</small>
+              </span>
+              <span class="action-arrow">→</span>
+            </button>
+          </div>
+        </section>
+      </section>
+
+      <!-- TASKS VIEW -->
+      <section id="tasksView" class="page-view" hidden>
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">STAY ORGANIZED</span>
+            <h1>My Tasks</h1>
+            <p>Manage assignments, subjects and study goals.</p>
+          </div>
+          <button class="primary-btn" id="addTaskBtn">
+            + Add new task
+          </button>
+        </div>
+
+        <div class="filter-bar">
+          <input
+            type="search"
+            id="taskSearch"
+            placeholder="Search tasks or subjects..."
+          />
+
+          <select id="taskFilter">
+            <option value="all">All tasks</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+          </select>
+
+          <select id="priorityFilter">
+            <option value="all">All priorities</option>
+            <option value="high">High priority</option>
+            <option value="medium">Medium priority</option>
+            <option value="low">Low priority</option>
+          </select>
+
+          <button class="secondary-btn" id="exportTasksBtn">
+            ↓ Export CSV
+          </button>
+        </div>
+
+        <section class="panel">
+          <div id="allTasksList" class="task-list">
+            <div class="empty-state">
+              <span>📚</span>
+              <p>No tasks available.</p>
+            </div>
+          </div>
+        </section>
+      </section>
+
+
+      <section id="scheduleView" class="page-view" hidden>
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">PLAN YOUR TIME</span>
+            <h1>Study Schedule</h1>
+            <p>Build a balanced plan around your deadlines.</p>
+          </div>
+
+          <button class="primary-btn" id="generateScheduleBtn">
+            ✦ Generate schedule
+          </button>
+        </div>
+
+        <div class="schedule-settings panel">
+          <div class="setting-field">
+            <label for="dailyHours">Daily study capacity</label>
+            <select id="dailyHours">
+              <option value="2">2 hours per day</option>
+              <option value="3">3 hours per day</option>
+              <option value="4" selected>4 hours per day</option>
+              <option value="5">5 hours per day</option>
+              <option value="6">6 hours per day</option>
+              <option value="8">8 hours per day</option>
+            </select>
+          </div>
+
+          <div class="setting-field">
+            <label for="studyStartTime">Preferred start time</label>
+            <select id="studyStartTime">
+              <option value="8">8:00 AM</option>
+              <option value="9" selected>9:00 AM</option>
+              <option value="10">10:00 AM</option>
+              <option value="14">2:00 PM</option>
+              <option value="16">4:00 PM</option>
+              <option value="18">6:00 PM</option>
+            </select>
+          </div>
+        </div>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Your planned sessions</h2>
+              <p>Sessions are generated from your pending tasks.</p>
+            </div>
+          </div>
+
+          <div id="scheduleList" class="schedule-list">
+            <div class="empty-state">
+              <span>🗓️</span>
+              <p>Generate a schedule to see your study sessions.</p>
+            </div>
+          </div>
+        </section>
+      </section>
+
+    
+      <section id="deadlinesView" class="page-view" hidden>
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">KEEP TRACK</span>
+            <h1>Deadlines</h1>
+            <p>Know what's coming up and prioritize your work.</p>
+          </div>
+        </div>
+
+        <div class="stats-grid deadline-stats">
+          <article class="stat-card">
+            <div class="stat-icon orange-icon">◷</div>
+            <p>Due today</p>
+            <h2 id="dueTodayCount">0</h2>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon blue-icon">▤</div>
+            <p>Due this week</p>
+            <h2 id="dueWeekCount">0</h2>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon red-icon">!</div>
+            <p>Overdue</p>
+            <h2 id="overdueCount">0</h2>
+          </article>
+        </div>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <h2>All deadlines</h2>
+              <p>Sorted by the nearest due date.</p>
+            </div>
+          </div>
+
+          <div id="deadlinesList" class="task-list">
+            <div class="empty-state">
+              <span>🎯</span>
+              <p>No deadlines yet. Add tasks with due dates.</p>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="panel pomodoro-panel">
+        <div class="pomodoro-info">
+          <span class="eyebrow">FOCUS MODE</span>
+          <h2>Time to focus</h2>
+          <p>Work in focused intervals and take regular breaks.</p>
+        </div>
+
+        <div class="pomodoro-controls">
+          <div class="timer-display" id="pomodoroDisplay">25:00</div>
+
+          <div class="timer-buttons">
+            <button class="primary-btn" id="pomodoroStart">Start</button>
+            <button class="secondary-btn" id="pomodoroReset">Reset</button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="app-footer">
+        <span>StudyFlow</span>
+        <span>Made for better learning ✦</span>
+      </footer>
+
+    </main>
+  </div>
+
+
+  <div id="taskModal" class="modal-overlay" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true"
+      aria-labelledby="taskModalTitle">
+
+      <div class="modal-heading">
+        <div>
+          <span class="eyebrow">TASK MANAGEMENT</span>
+          <h2 id="taskModalTitle">Add a new task</h2>
+        </div>
+
+        <button type="button" id="closeTaskModal" class="close-btn"
+          aria-label="Close dialog">×</button>
+      </div>
+
+      <form id="taskForm">
+        <input type="hidden" id="taskId" />
+
+        <div class="form-field">
+          <label for="taskTitle">Task title *</label>
+          <input id="taskTitle" type="text"
+            placeholder="e.g. Revise Data Structures" required />
+        </div>
+
+        <div class="form-field">
+          <label for="taskSubject">Subject</label>
+          <input id="taskSubject" type="text"
+            placeholder="e.g. Computer Science" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="taskDueDate">Due date *</label>
+            <input id="taskDueDate" type="date" required />
+          </div>
+
+          <div class="form-field">
+            <label for="taskDuration">Study time (hours) *</label>
+            <input id="taskDuration" type="number"
+              min="0.25" max="100" step="0.25"
+              value="1" required />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="taskPriority">Priority</label>
+          <select id="taskPriority">
+            <option value="high">High</option>
+            <option value="medium" selected>Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" id="cancelTaskBtn" class="secondary-btn">
+            Cancel
+          </button>
+          <button type="submit" class="primary-btn">
+            Save task
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
